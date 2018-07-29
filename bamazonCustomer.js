@@ -15,15 +15,23 @@ const enquirer = new Enquirer();
 //MySQL queries
 let wholeStore = 'SELECT ID, item_name, department, price, stock FROM product';
 
-//
 connection.connect(function (err) {
     if (err) throw err;
     console.log("connected as id " +
         connection.threadId);
-    connection.end();
+    
+    //query 
+    queryAllProducts();
+    
 });
 
 //Query the full store 
 function queryAllProducts() {
-    connection.query(wholeStore)
+    connection.query(wholeStore,
+        function (err, res) {
+            if (err) throw err;
+            // Log all results of the SELECT statement
+            console.log(res);
+            connection.end();
+        });
 }
