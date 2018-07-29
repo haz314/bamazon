@@ -8,6 +8,7 @@ const connection = mysql.createConnection({
     database: 'bamazon_db'
 });
 
+
 //NPM Enquirer
 const Enquirer = require('enquirer');
 const enquirer = new Enquirer();
@@ -25,7 +26,43 @@ connection.connect(function (err) {
     
 });
 
-//Query the full store 
+
+/*hdfdhfdhfhdf
+ fjjfdf
+
+
+
+*/
+/*hdfdhfdhfhdf
+
+
+*/
+/** jfdjfjdjfd
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+/**
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
+/** hi my name is 
+ * 
+ * 
+ * sd 
+ */
+
+ /* hell o 
+ 
+ */
+
 function queryAllProducts() {
     connection.query(wholeStore,
         function (err, res) {
