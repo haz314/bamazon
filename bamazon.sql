@@ -6,7 +6,7 @@ CREATE DATABASE bamazon_db;
 USE bamazon_db;
 
 CREATE TABLE product (
-    ID INT(10) NOT NULL AUTO_INCREMENT,
+    id INT(10) NOT NULL AUTO_INCREMENT UNIQUE,
     name VARCHAR(30) NOT NULL,
     department VARCHAR(30) NOT NULL,
     price DECIMAL(13, 4) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE product (
     PRIMARY KEY (ID)
 );
 
-INSERT INTO product (item_name, department, price, stock)
+INSERT INTO product (name, department, price, stock)
 VALUES
 ('PlayStation', 'Video Games', 399.99, 15),
 ('Xbox', 'Video Games', 499.99, 10),
