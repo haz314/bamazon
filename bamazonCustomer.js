@@ -30,6 +30,7 @@ const whatPurchase = [
 	}
 ];
 
+//PROGRAM EXECUTES HERE
 connection.connect(function (err) {
 	if (err) {
 		console.error('error connecting: ' + error.stack);
@@ -40,6 +41,7 @@ connection.connect(function (err) {
 	queryWholeStore();
 });
 
+//Displays the store
 function queryWholeStore() {
 	connection.query(wholeStore, function (err, results, fields) {
 		//if there is an error throw it
