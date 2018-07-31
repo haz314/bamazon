@@ -8,8 +8,6 @@ const connection = mysql.createConnection({
 	database: 'bamazon_db'
 });
 
-//NPM
-
 //NPM Inquirer
 const inquirer = require('inquirer');
 
