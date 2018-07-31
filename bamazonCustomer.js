@@ -8,13 +8,17 @@ const connection = mysql.createConnection({
 	database: 'bamazon_db'
 });
 
+//NPM
+
 //NPM Inquirer
 const inquirer = require('inquirer');
 
 //MySQL queries
-const wholeStore = "SELECT id, name, department, price, stock FROM product";
-const userChoice = "SELECT id, name, department, price, stock FROM product WHERE id = ?";
-const updateStore = "UPDATE product SET stock = stock - ? WHERE id = ?";
+const sqlQuery = {
+	wholeStore: "SELECT id, name, department, price, stock FROM product",
+	userChoice: "SELECT id, name, department, price, stock FROM product WHERE id = ?",
+	updateStore: "UPDATE product SET stock = stock - ? WHERE id = ?"
+}
 
 //Inquirer questions
 const whatPurchase = [
@@ -33,28 +37,30 @@ const whatPurchase = [
 //PROGRAM EXECUTES HERE
 connection.connect(function (err) {
 	if (err) {
-		console.error('error connecting: ' + error.stack);
+		console.error('error connecting: ' + err.stack);
 		return;
 	}
+	
+	console.log('connected as id ' + connection.threadId);
 
-	console.log('connected as id ' + connection.threadid);
+	//Display the store
 	queryWholeStore();
 });
 
 //Displays the store
 function queryWholeStore() {
-	connection.query(wholeStore, function (err, results, fields) {
+	connection.query(sqlQuery.wholeStore, function (err, results, fields) {
 		//if there is an error throw it
 		if (err) throw err;
 
-		// Log all results of the SELECT statement
+		//Traverse through array of results from query
 		for (var i = 0; i < results.length; i++) {
 			console.log(
-				results[i].id + " | "
-				+ results[i].name + " | "
-				+ results[i].department + " | "
-				+ results[i].price + " | "
-				+ results[i].stock);
+				results[i].id + " | " +
+				results[i].name + " | " +
+				results[i].department + " | " +
+				results[i].price + " | " +
+				results[i].stock);
 		}
 		console.log("-----------------------------------");
 		askWhatPurchase();
@@ -70,7 +76,7 @@ function askWhatPurchase() {
 
 //Checks database to see if user's item is in stock
 function checkStock(id, quantity) {
-	connection.query(userChoice, id, function (err, res) {
+	connection.query(sqlQuery.userChoice, id, function (err, res) {
 		if (err) throw err;
 		//Purchase product if in stock
 		if (res[0].stock >= quantity) {
@@ -83,9 +89,9 @@ function checkStock(id, quantity) {
 
 //Updates the database to reflect a purchase
 function purchaseProduct(id, quantity) {
-	connection.query(updateStore, [quantity, id], function (err, res) {
+	connection.query(sqlQuery.updateStore, [quantity, id], function (err, res) {
 		if (err) throw err;
-		connection.query(userChoice, id, function (err, res) {
+		connection.query(sqlQuery.userChoice, id, function (err, res) {
 			if (err) throw err;
 			let cost = parseFloat(quantity) * res[0].price;
 			console.log("-----------------------------------");
