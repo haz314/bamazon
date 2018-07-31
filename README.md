@@ -50,6 +50,8 @@ node bamazonCustomer.js
 
 The app will present the user with the store inventory and ask for an item ID and quantity to purchase and then output the results of the purchase.
 
+![DEMO](./demo.gif)
+
 ```
 $ node bamazonCustomer.js
 connected as id 28
